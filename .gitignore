@@ -1,0 +1,9 @@
+# hidden folders
+.venv
+.devbox
+
+# hidden files
+.DS_Store
+
+# folders
+bin

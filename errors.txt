@@ -1,0 +1,17 @@
+Errors to fix and tackle with:
+the following package in devbox.json in packages is not installed properly (find a work around)
+    "path:gcloud#google-cloud-sdk",
+installing above by devbox shell got me the following issue:
+Error: error installing package path:gcloud#google-cloud-sdk
+source: nix: command error: nix --extra-experimental-features ca-derivations --option experimental-features 'nix-command flakes fetch-closure' path-info 'path:/Users/arifmoazy/AI/kubernetes_microservice_architecture/gcloud#google-cloud-sdk' --json --impure: path '/Users/arifmoazy/AI/kubernetes_microservice_architecture/gcloud' does not exist: exit code 1
+
+
+
+after installation by devbox shell, got the following issue:
+Poetry could not find a pyproject.toml file in /Users/arifmoazy/AI/kubernetes_microservice_architecture or its parents
+
+
+
+
+
+
