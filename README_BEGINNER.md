@@ -34,3 +34,10 @@ echo -n 'username or password goes here' | base64
 
 Namespace:
 namespaces provide a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects (e.g. Deployments, Services, etc.)
+
+Kubectx:
+kubectx is a power tool to switch between kubernetes clusters with ease as well as a utility to manage and switch between kubectl contexts.
+brew install kubectx
+
+Kubens:
+Kubens is a power tool that allows for ease of switching between namespaces. These power tools come in handy when navigating your clusters and namespaces.

@@ -83,9 +83,17 @@ mongodb-service         ClusterIP      10.98.180.8    <none>        27017/TCP   
 
 
 ------
+kubectl create namespace <namespace_name>
 
 kubectl get namespace 
 
+# list out all of the spaces
+kubens
+
+# switch to different namespace
+kubens namespace_name
+
+# after switching to a different namespace then we do not need to space in every command --namespace
 
 
 
