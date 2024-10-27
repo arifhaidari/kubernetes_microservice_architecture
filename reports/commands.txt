@@ -1,4 +1,92 @@
 kubectl version
-
 minikube version
+
+# creating a virtual machine using hyperkit
+minikube start --vm-driver=hyperkit
+# running the above command gave me issue but by turning of the internet sharing was solved
+
+
+# get status of the nodes
+kubectl get nodes
+
+minikube status
+
+kubectl get pod
+
+kubectl get services
+
+# it shows what we can do with this command 
+kubectl create -h
+
+# deploy nginx
+kubectl create deployment nginx-depl --image=nginx
+kubectl get deployment # this is usually the container itself 
+kubectl get pod # this is usually a replica or an abstraction of the container
+
+# managing replica of a pod
+kubectl get replicaset
+
+# edit
+kubectl edit deployment nginx-depl
+
+kubectl logs [pod_name]
+
+kubectl describe pod [pod_name]
+
+# running a pod in the interactive mode in terminal and this command take you inside that 
+# particular container
+kubectl exec -it [pod_name] -- bin/bash
+
+
+# To delete a deployment or a pod
+kubectl delete deployment [deployment_name]
+
+# create or edit config file
+vim nginx-deployment.yaml
+kubectl apply -f nginx-deployment.yaml
+kubectl get pod
+kubectl get deployment
+
+# delete with config
+kubectl delete -f nginx-deployment.yaml
+
+# The kubectl top command returns current CPU and memory usage for a cluster’s pods or nodes, or for a particular pod or node if specified.
+kubectl top 
+
+# to get the status of deployment or pod from etcd (where the metadata is stored)
+kubectl get deployment nginx-deployment -o yml > nginx_deployment_result
+
+# to delete using the config files 
+kubectl delete -f nginx-service.yml
+
+# to get additional information
+kubectl get pod -o wide
+
+# to run the cluster
+(base) arifmoazy@Arifs-MBP beginner_demo_project % kubectl get services                        
+NAME                    TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+kubernetes              ClusterIP      10.96.0.1      <none>        443/TCP          9h
+mongo-express-service   LoadBalancer   10.104.78.40   <pending>     8081:30000/TCP   10m
+mongodb-service         ClusterIP      10.98.180.8    <none>        27017/TCP        41m
+(base) arifmoazy@Arifs-MBP beginner_demo_project % minikube service mongo-express-service
+|-----------|-----------------------|-------------|---------------------------|
+| NAMESPACE |         NAME          | TARGET PORT |            URL            |
+|-----------|-----------------------|-------------|---------------------------|
+| default   | mongo-express-service |        8081 | http://192.168.64.2:30000 |
+|-----------|-----------------------|-------------|---------------------------|
+🎉  Opening service default/mongo-express-service in default browser...
+(base) arifmoazy@Arifs-MBP beginner_demo_project % kubectl get services                  
+NAME                    TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+kubernetes              ClusterIP      10.96.0.1      <none>        443/TCP          9h
+mongo-express-service   LoadBalancer   10.104.78.40   <pending>     8081:30000/TCP   13m
+mongodb-service         ClusterIP      10.98.180.8    <none>        27017/TCP        44m
+
+
+------
+
+kubectl get namespace 
+
+
+
+
 
