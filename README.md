@@ -1,39 +1,103 @@
 # Kubernetes Microservice Architecture (Under Development)
 
-content of the project:
+This project explores a microservice architecture using Kubernetes, allowing for learning and future reference. The setup is designed for local development on Minikube, leveraging various Kubernetes resources, tools, and best practices for a scalable microservice deployment.
 
-     Use Helm for managing Kubernetes applications
-     Deploy a sample application to a Kubernetes cluster
-     Extend Kubernetes with custom resources and controllers
-     Deploy auxiliary tools like Trivy Operator for security and CloudNativePG for database management
-     Enhance developer experience with tools like Tilt and External Secrets Operator
-     Debug and troubleshoot Kubernetes applications
-     Manage deployments across multiple environments using Kustomize, Helm, Kluctl and other tools
-     Implement a CI/CD pipeline for Kubernetes
+## Table of Contents
 
-for the purpose of demo:
-I will use React in the front end. I will use API (Go & Node.js), Python load generator and PostgreSQL database.
+1. [Technologies Used](#technologies-used)
+2. [Setup](#setup)
+   - Minikube
+   - kubectl CLI
+3. [Demo Project: Mongo Express and MongoDB](#demo-project-mongo-express-and-mongodb)
+4. [Kubernetes Concepts](#kubernetes-concepts)
+   - Namespaces
+   - Helm and Helm Charts
+   - Volumes and Persistent Volumes
+5. [Networking](#networking)
+   - Services
+   - Ingress and NGINX Ingress Controller
 
-Tools to use:
+## Technologies Used
 
-- Docker
-- DevBox - it is a wrapper around a technology called Nix. Nix is a package manager and it allows you to use different tools and create a reproducible installation. DevBox will help you create an isolated environment.
+### Minikube
 
-install the Devbox:
-curl -fsSL https://get.jetify.com/devbox | bash
+Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple, single-node cluster. Minikube can run on virtual environments like VirtualBox or HyperKit. When Docker is installed, HyperKit is automatically available for use as the VM driver.
 
-then I create a devbox.json file and in this json file packages are a bunch of CLI tools.
-then I created a devbox.lock and it contains the specific version of the packages and mange the compatibility between the packages
-devbox shell in the terminal install everything and pull it out from the package manager
-devbox list in terminal list out everything
+### HyperKit
 
-one of the dependency is go-task - this a task runner program that will store all the commands.
-Go-Task is a very simple library that allows you to write simple “task” scripts in Go and run.
+HyperKit is a lightweight hypervisor framework for macOS, designed to run entirely in userspace. This eliminates the need for third-party VM products, streamlining Kubernetes deployments on local machines.
 
-KinD:
-kind is a tool for running local Kubernetes clusters using Docker container “nodes”. kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI
+### kubectl
 
----
+`kubectl` is a command-line tool that enables interaction between the Kubernetes API and the control plane. It allows for application deployment, resource management, and monitoring of cluster resources.
 
-Credit:
-a lot of material and approaches are inspired from different sources such as Stackoverflow (stackexchange), Medium, Github, tutorials and also ChatGPT.
+### kubectx and kubens
+
+- **kubectx**: A CLI tool to switch easily between Kubernetes clusters.
+- **kubens**: A CLI tool for switching between namespaces within a Kubernetes cluster.
+
+Install using:
+
+```bash
+brew install kubectx
+```
+
+## Setup
+
+### Minikube CLI
+
+The `minikube` CLI is used to start, stop, and delete the Kubernetes cluster.
+
+### kubectl CLI
+
+Use the `kubectl` CLI to configure and manage the Minikube cluster, including deployment of applications and resources.
+
+## Demo Project: Mongo Express and MongoDB
+
+This demo utilizes MongoDB as a NoSQL database and Mongo Express as a web-based MongoDB admin interface.
+
+- **MongoDB**: A document-oriented, NoSQL database that stores data in JSON-like documents.
+- **Mongo Express**: An admin interface for MongoDB, built using Node.js, Express, and Bootstrap.
+
+**Tip**: For added security, avoid storing plain text passwords. Use base64 encoding:
+
+```bash
+echo -n 'your_username_or_password' | base64
+```
+
+## Kubernetes Concepts
+
+### Namespaces
+
+Namespaces provide a mechanism for isolating resources within a Kubernetes cluster. Resource names need to be unique only within a namespace, allowing for better resource organization in large clusters.
+
+### Helm and Helm Charts
+
+- **Helm**: A tool to define, install, and upgrade Kubernetes applications. Helm Charts bundle Kubernetes resource definitions, allowing for easy versioning and sharing.
+- **Helm Charts**: Collections of Kubernetes files that package an application into a single deployable unit.
+
+### Volumes and Persistent Volumes
+
+- **Volumes**: Directories accessible to containers within a pod, allowing for data persistence.
+- **Persistent Volumes (PV)**: Provide storage that persists beyond the lifecycle of individual pods.
+- **StorageClass**: Enables dynamic provisioning of PVs by defining storage characteristics that pods can request based on their requirements.
+
+Example of using **NFS** (Network File System) for shared storage across pods, which allows remote access to files as if they were on local storage.
+
+## Networking
+
+### Kubernetes Services
+
+A Kubernetes Service is a logical abstraction that groups a set of pods, allowing for stable networking and load balancing between ephemeral pods.
+
+### Ingress and NGINX Ingress Controller
+
+**Ingress** resources manage external access to services within a Kubernetes cluster. It acts as a unified entry point, routing traffic to the appropriate services based on defined rules.
+
+**NGINX Ingress Controller** provides public access to internal services using the NGINX web server as a proxy.
+
+To enable the NGINX Ingress Controller in Minikube:
+
+```bash
+minikube addons enable ingress
+```

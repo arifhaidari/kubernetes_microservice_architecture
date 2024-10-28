@@ -1,7 +1,7 @@
 kubectl version
 minikube version
 
-# creating a virtual machine using hyperkit
+# creating a virtual machine in mac system using hyperkit
 minikube start --vm-driver=hyperkit
 # running the above command gave me issue but by turning of the internet sharing was solved
 
@@ -92,8 +92,71 @@ kubens
 
 # switch to different namespace
 kubens namespace_name
-
 # after switching to a different namespace then we do not need to space in every command --namespace
+
+# installing or enabling the Ingress controller in minikube
+minikube addons enable ingress
+
+-----------
+
+# if you run:
+kubectl get ns # ns stands for namespace
+# and you do not see the kubernetes-dashboard then runt:
+minikube addons list
+# if you see that dashboard is disabled then activate by:
+minikube addons enable dashboard
+# then you can get the url:
+minikube dashboard --url
+# running above provide a link and give you the whole overview of your kubernetes cluster
+(base) arifmoazy@Arifs-MBP kubernetes_microservice_architecture % kubectl get all -n kubernetes-dashboard
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/dashboard-metrics-scraper-c5db448b4-4555d   1/1     Running   0          3m54s
+pod/kubernetes-dashboard-695b96c756-lcpqm       1/1     Running   0          3m54s
+
+NAME                                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/dashboard-metrics-scraper   ClusterIP   10.111.61.162   <none>        8000/TCP   3m54s
+service/kubernetes-dashboard        ClusterIP   10.105.19.242   <none>        80/TCP     3m54s
+
+NAME                                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/dashboard-metrics-scraper   1/1     1            1           3m55s
+deployment.apps/kubernetes-dashboard        1/1     1            1           3m55s
+
+NAME                                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/dashboard-metrics-scraper-c5db448b4   1         1         1       3m55s
+replicaset.apps/kubernetes-dashboard-695b96c756       1         1         1       3m55s
+
+
+------------
+(base) arifmoazy@Arifs-MBP kubernetes_microservice_architecture % kubectl get ns                
+NAME                   STATUS   AGE
+default                Active   24h
+dev-space              Active   12h
+ingress-nginx          Active   90s
+kube-node-lease        Active   24h
+kube-public            Active   24h
+kube-system            Active   24h
+kubernetes-dashboard   Active   40m
+(base) arifmoazy@Arifs-MBP kubernetes_microservice_architecture % cd config 
+(base) arifmoazy@Arifs-MBP config % ls
+dashboard_ingress.yml           info.txt                        nginx_deployment.yml            nginx_deployment_result.yml     nginx_service.yml
+(base) arifmoazy@Arifs-MBP config % kubectl apply -f dashboard_ingress.yml 
+ingress.networking.k8s.io/dashboard-ingress created
+(base) arifmoazy@Arifs-MBP config % kubectl get ingress -n kubernetes-dashboard
+NAME                CLASS   HOSTS           ADDRESS        PORTS   AGE
+dashboard-ingress   nginx   dashboard.com   192.168.64.2   80      77s
+(base) arifmoazy@Arifs-MBP config % sudo vim /etc/hosts
+
+# Above I did add the ip address of dashboard-ingress (192.168.64.2) to /etc/hosts and referenced to 
+# dashboard_ingress.yml file (host: customdashboard.com)
+# in browser I did enter customdashboard.com and got the kubernetes dashboard
+
+---------------
+
+
+
+
+
+
 
 
 

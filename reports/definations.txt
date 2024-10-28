@@ -1,0 +1,12 @@
+Service:
+A Kubernetes service is a logical abstraction for a deployed group of pods in a cluster (which all perform the same function). Since pods are ephemeral, a service enables a group of pods, which provide specific functions (web services, image processing, etc.) to be assigned a name and unique IP address (clusterIP)
+
+Ingress:
+Ingress is a Kubernetes resource that manages external access to services within a cluster. It acts as a single entry point for incoming traffic, routing it to the appropriate services based on the routing rules the developer sets. Kubernetes Ingress provides a way to securely and efficiently expose services.
+
+NGINX ingress controller:
+The NGINX Ingress Controller for Kubernetes works with the NGINX webserver (as a proxy). The ngrok Kubernetes Ingress Controller is an open source controller for adding secure public access to your K8s services using the ngrok platform
+Since I am using minikube in my local computer so I will install this there by running the following:
+minikube addons enable ingress
+
+
